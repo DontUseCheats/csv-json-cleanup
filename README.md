@@ -12,5 +12,7 @@ relative path - works if the script is being run from the same folder as where t
 absolute path - uses pathlib and Path.home() to search the machine
 
 I needed to use the absolute path method since the csv file I have is located in a different directory.
+
     csv_path = pathlib.home() / "Desktop" / "messycsv" / "listings.csv"
-    df = pd.read.csv(csv_path)
+    
+    df = pd.read.csv
