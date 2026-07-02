@@ -5,7 +5,7 @@ from pathlib import Path
 pd.set_option('display.max_columns', None)
 
 # using path from pathlib to find csv dataset on desktop
-csv_path = Path.home() / "Desktop" / "messycsv" / "ObesityDataSet_raw_and_data.csv"
+csv_path = Path.home() / "Desktop" / "messycsv" / "obesity_data" / "ObesityDataSet_raw_and_data.csv"
 
 # reads csv file
 df = pd.read_csv(csv_path)
@@ -25,8 +25,14 @@ print("Duplicate rows on cleaned dataset:", df_cleaned.duplicated().sum())
 # rounding floats and changing dtypes
 df_cleaned['Age'] = df_cleaned['Age'].round(0).astype(int)
 df_cleaned['Height'] = df_cleaned['Height'].round(2)
-df_cleaned['Weight'] = df_cleaned['Weight'] * 2.20462
-df_cleaned['Weight'] = df_cleaned['Weight'].round(2)
+df_cleaned['Weight'] = ((df_cleaned['Weight'] * 2.20462).round(2))
 
+# renaming columns to snakecase
+df_cleaned.columns = df_cleaned.columns.str.lower()
 
-print(df_cleaned.sample(n=10))
+cleaned_csv_path = Path.home() / "Desktop" / "messycsv" / "obesity_data" / "cleaned_data"
+cleaned_csv_path.mkdir(parents = True, exist_ok = True)
+
+cleaned_csv_file = cleaned_csv_path / "cleaned_csv_file.csv"
+
+df_cleaned.to_csv(cleaned_csv_file, index = False)
