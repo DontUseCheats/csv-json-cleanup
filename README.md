@@ -1,27 +1,26 @@
-# csv-json-cleanup
-Read messy CSV/JSON and clean/transform and write clean CSV/JSON back out.
+# csv-cleanup
+Cleanup of a messy CSV Includes:
+
+Removing duplicates
+Changing dtypes
 
 ## Note Taking
 Throughout creating this project, I'll be note taking any new topics/concepts that I learn.
 
-### panda
-Difference between relative and absolute path
-    
-relative path - works if the script is being run from the same folder as where the csv is
+Syntaxes Learned
 
-absolute path - uses pathlib and Path.home() to search the machine
+.duplicated().sum() 
+.duplicated() finds any duplicate rows while .sum() counts how many duplicate rows
 
-I needed to use the absolute path method since the csv file I have is located in a different directory.
+.drop_duplicates() drops any duplicate rows in dataset
 
-    csv_path = pathlib.home() / "Desktop" / "messycsv" / "listings.csv"
+.sample(n=x) Randomly displays x amount of random rows in dataset
 
-    df = pd.read.csv
+reassignment of dtypes
+-dtype Age of float to int
+-Rounded to decimal place of 0 for Age
+-Rounded to decimal place of 2 for Weight
+-Multiplied Weight by 2.20462 to change from Kilo's to pounds then rounded to decimal place of 2
 
-When using df.info() came across missing values for multiple columns showing as NaN. Used 
+When changing dtypes a new object is created rather than the original being updated. So reassign the original DataFrame object to its newly created one so the variable always points to the latest version of your data.
 
-    print(df_raw['price'].head(10))
-    print(df_raw['price'].dtype)
-
-to look at raw values before dtype conversion. Looking at the column names we verified that the name itself is correct. We also verified that missing values problem comes from the raw CSV file itself. To look at the raw file directly we bypass panda and use terminal command
-
-    head -5 ~/Desktop/messycsv/listings.csv
